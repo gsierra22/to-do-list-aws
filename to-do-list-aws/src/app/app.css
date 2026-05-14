@@ -1,0 +1,8 @@
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
