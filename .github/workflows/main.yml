@@ -25,7 +25,7 @@ jobs:
         run: npm run build --prod
 
       - name: Deploy to S3
-        uses: gc-static-bucket-22/s3-sync-action@v0.5.1
+        uses: to-do-list-aws/s3-sync-action@v0.5.1
         with:
           args: --delete
         env:
