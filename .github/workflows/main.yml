@@ -24,6 +24,7 @@ jobs:
 
       - name: Build Angular app
         run: npm run build --prod
+        working-directory: ./to-do-list-aws
 
       - name: Deploy to S3
         uses:  jakejarvis/s3-sync-action@v0.5.1
