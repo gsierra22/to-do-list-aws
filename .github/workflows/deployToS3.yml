@@ -6,14 +6,29 @@ jobs:
     steps:
       - name: Checkout code from repo
         uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        working-directory: ./to-do-list-aws
+        run: npm ci
+
+      - name: Build Angular app
+        working-directory: ./to-do-list-aws
+        run: npm run build
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID}}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-      - name: Code Static code to S3
+
+      - name: Deploy build to S3
+        working-directory: ./to-do-list-aws
         run: |
-          aws s3 sync ./ s3://gc-aws-test-bucket-22/ \
-          --exclude "*" \
-          --include "index.html"
+          aws s3 sync ./dist/to-do-list-aws/ s3://gc-aws-test-bucket-22/ --delete
