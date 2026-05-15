@@ -14,11 +14,11 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        working-directory: ./to-do-list-aws
+        working-directory: ./to-do-list-aws/to-do-list-aws
         run: npm ci
 
       - name: Build Angular app
-        working-directory: ./to-do-list-aws
+        working-directory: ./to-do-list-aws/to-do-list-aws
         run: npm run build
 
       - name: Configure AWS Credentials
@@ -29,6 +29,6 @@ jobs:
           aws-region: us-east-1
 
       - name: Deploy build to S3
-        working-directory: ./to-do-list-aws
+        working-directory: ./to-do-list-aws/to-do-list-aws
         run: |
           aws s3 sync ./dist/to-do-list-aws/ s3://gc-aws-test-bucket-22/ --delete
