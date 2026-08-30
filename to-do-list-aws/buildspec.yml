@@ -1,0 +1,23 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20
+    commands:
+      - cd to-do-list-aws
+      - npm ci
+  build:
+    commands:
+      - npm run build -- --configuration production
+  post_build:
+    commands:
+      # Sync built static files to your target S3 bucket
+      - aws s3 sync dist/YOUR_APP_NAME s3://gc-static-bucket-22 --delete
+      # Invalidate CloudFront cache so changes reflect instantly
+      - aws cloudfront create-invalidation --distribution-id E2X36TAAPTGAHT --paths "/*"
+
+artifacts:
+  files:
+    - '**/*'
+  base-directory: dist/to-do-list-aws/browser
