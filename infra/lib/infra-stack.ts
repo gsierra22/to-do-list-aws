@@ -69,7 +69,7 @@ export class FrontendStack extends cdk.Stack {
           },
           post_build: {
             commands: [
-              'aws s3 sync to-do-list-aws/dist/to-do-list-aws/browser s3://$S3_BUCKET_NAME --delete',
+              'aws s3 sync to-do-list-aws/dist/to-do-list-aws/browser s3://gc-static-bucket-22 --delete',
               'aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DIST_ID --paths "/*"',
             ],
           },
