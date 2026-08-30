@@ -5,19 +5,18 @@ phases:
     runtime-versions:
       nodejs: 20
     commands:
-      # Navigate to subfolder and run npm ci in a single inline step
-      - cd to-do-list-aws && npm ci
+      - npm ci
   build:
     commands:
-      - cd to-do-list-aws && npm run build -- --configuration production
+      - npm run build -- --configuration production
   post_build:
     commands:
-      # Sync the compiled output to S3
-      - aws s3 sync to-do-list-aws/dist/to-do-list-aws/browser s3://gc-static-bucket-22 --delete
-      # Clear CloudFront cache (replace YOUR_CLOUDFRONT_DISTRIBUTION_ID)
+      # Sync compiled files directly to S3
+      - aws s3 sync dist/to-do-list-aws/browser s3://gc-static-bucket-22 --delete
+      # Clear CloudFront cache
       - aws cloudfront create-invalidation --distribution-id E2X36TAAPTGAHT --paths "/*"
 
 artifacts:
   files:
     - '**/*'
-  base-directory: to-do-list-aws/dist/to-do-list-aws/browser
+  base-directory: dist/to-do-list-aws/browser
