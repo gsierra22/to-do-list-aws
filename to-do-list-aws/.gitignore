@@ -42,3 +42,9 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+
+# AWS CDK artifacts
+infra/cdk.out/
+infra/**/*.js
+infra/**/*.d.ts
+infra/node_modules/
