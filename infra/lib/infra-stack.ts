@@ -96,7 +96,7 @@ export class FrontendStack extends cdk.Stack {
       owner: props.githubOwner,
       repo: props.githubRepo,
       branch: branch,
-      connectionArn: `arn:aws:codestar-connections:${this.region}:${this.account}:connection/arn:aws:codeconnections:us-east-1:533267233668:connection/9b9e7c15-4107-4a93-ae89-8b08ce800f55`,
+      connectionArn: `arn:aws:codeconnections:us-east-1:533267233668:connection/9b9e7c15-4107-4a93-ae89-8b08ce800f55`,
       output: sourceOutput,
     });
 
